@@ -5,11 +5,11 @@
     <link rel="stylesheet" href="./style.css">
     <script type="text/javascript" src="../node_modules/zoid/dist/zoid.js"></script>
   </head>
-  <body id="body">
+  <body>
     <h2>iFrame</h2>
     <p>Form result from Host Domain</p>
-    <p>Username: <span id="username">-----</span></p>
-    <p>Password: <span id="password">-----</span></p>
+    <p>Username: <span id="username"></span></p>
+    <p>Password: <span id="password"></span></p>
 
     <button type="button" id="sendTest">
       Send "Test Message" to Host Domain
@@ -25,10 +25,16 @@
           height: true,
         },
       });
-      
-      // Send value to parent window
+
+      // Update "result" element from parent
       document.getElementById("sendTest").addEventListener('click', () => {
-        window.xprops.testResult('Test Message from Iframe Domain');
+        window.xprops.testResult('result', 'Test Message from Iframe Domain');
+      });
+
+      // Listening props from parent
+      window.xchild.onProps((props) => {
+        document.getElementById('username').innerHTML = props.formResult.username || '-----';
+        document.getElementById('password').innerHTML = props.formResult.password || '-----';
       });
     </script>
   </body>

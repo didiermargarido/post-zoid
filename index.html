@@ -24,19 +24,37 @@
       const CrossDomain = zoid.create({
         tag: 'cross-domain',
         url: './iframe',
+        props: {
+          testResult: {
+            type: 'function',
+            required: true,
+          },
+          formResult: {
+            type: 'object',
+            required: true,
+          },
+        },
       });
 
-      // Create iframe and methods for child
-      CrossDomain.render({
-        testResult: (data) => {
-          document.getElementById("result").innerHTML = data;
+      // Create methods accessible to child
+      const options = {
+        testResult: (elementId, data) => {
+          document.getElementById(elementId).innerHTML = data;
         },
-      }, 'body');
+        formResult: {},
+      };
 
-      // Call "login" method in the child model
-      document.getElementById("submit").addEventListener('click', () => {
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
+      // Render component 
+      CrossDomain.render(options, 'body').then(component => {
+        // Update formResult after submit
+        document.getElementById("submit").addEventListener('click', () => {
+          component.updateProps({ 
+            formResult: {
+              username: document.getElementById("username").value,
+              password: document.getElementById("password").value,
+            },
+          });
+        });
       });
     </script>
   </body>
