@@ -3,32 +3,36 @@
   <head>
     <title>Zoid - Iframe Domain</title>
     <link rel="stylesheet" href="./style.css">
+    <script type="text/javascript" src="../node_modules/zoid/dist/zoid.js"></script>
   </head>
-  <body>
+  <body id="body">
     <h2>iFrame</h2>
     <p>Form result from Host Domain</p>
     <p>Username: <span id="username">-----</span></p>
     <p>Password: <span id="password">-----</span></p>
 
-    <button type="button" onclick="sendToParent();">
+    <button type="button" id="sendTest">
       Send "Test Message" to Host Domain
     </button>
 
     <script>
-      // Get values from parent window
-      window.addEventListener('message', event => {
-        for (let [key, value] of Object.entries(event.data)) {
-          document.getElementById(key).innerHTML = value;  
-        }
+      // Create zoid component
+      const CrossDomain = zoid.create({
+        tag: 'cross-domain',
+        url: '../iframe',
+        autoResize: {
+          width: true,
+          height: true,
+        },
       });
+      
+      // console.log('CHILD', window.xprops);
+      // document.getElementById("username").innerHTML = window.xprops;
 
       // Send value to parent window
-      function sendToParent() {
-        window.parent.postMessage(
-          'Test Message from Iframe Domain', 
-          '*'
-        );
-      }
+      document.getElementById("sendTest").addEventListener('click', () => {
+        window.xprops.testResult('Test Message from Iframe Domain');
+      });
     </script>
   </body>
 </html>
