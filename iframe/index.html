@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Zoid - Iframe Domain</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <h2>iFrame</h2>
+    <p>Form result from Host Domain</p>
+    <p>Username: <span id="username">-----</span></p>
+    <p>Password: <span id="password">-----</span></p>
+
+    <button type="button" onclick="sendToParent();">
+      Send "Test Message" to Host Domain
+    </button>
+
+    <script>
+      // Get values from parent window
+      window.addEventListener('message', event => {
+        for (let [key, value] of Object.entries(event.data)) {
+          document.getElementById(key).innerHTML = value;  
+        }
+      });
+
+      // Send value to parent window
+      function sendToParent() {
+        window.parent.postMessage(
+          'Test Message from Iframe Domain', 
+          '*'
+        );
+      }
+    </script>
+  </body>
+</html>

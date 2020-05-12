@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Zoid - Host Domain</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <h1>Zoid</h1>
+    <p>Submit the form and see the result on the iframe domain.</p>
+    
+    <form> 
+      <input type="text" placeholder="Username" id="username" />
+      <input type="password" placeholder="Password" id="password" />
+      <button type="button" onClick="submitForm();">Submit</button>
+    </form>
+
+    <p>Test result from iframe domain: <span id="result"></span></p>
+
+    <hr />
+
+    <iframe id="iframe" src="./iframe"></iframe>
+
+    <script>
+      function submitForm(ev) {
+        // Get form values
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+      }
+    </script>
+  </body>
+</html>

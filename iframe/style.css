@@ -1,0 +1,27 @@
+body {
+  padding: 30px;
+  margin: 0;
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  margin: 0;
+}
+
+h2 + p {
+  margin: 10px 0 30px;
+}
+
+button {
+  background: cadetblue;
+  padding: 10px;
+  font-size: 14px;
+  color: white;
+  border: 0;
+  cursor: pointer;
+}
+
+span {
+  color: cornflowerblue;
+}
