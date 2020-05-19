@@ -19,7 +19,7 @@
 
     <hr />
 
-    <script>
+    <script type="text/javascript">
       // Create zoid component
       const CrossDomain = zoid.create({
         tag: 'cross-domain',
@@ -27,32 +27,32 @@
         props: {
           testResult: {
             type: 'function',
-            required: true,
+            required: true
           },
           formResult: {
             type: 'object',
-            required: true,
-          },
-        },
+            required: true
+          }
+        }
       });
 
       // Create methods accessible to child
       const options = {
-        testResult: (elementId, data) => {
+        testResult: function (elementId, data) {
           document.getElementById(elementId).innerHTML = data;
         },
-        formResult: {},
+        formResult: {}
       };
 
       // Render component 
-      CrossDomain.render(options, 'body').then(component => {
+      CrossDomain.render(options, 'body').then(function (component) {
         // Update formResult after submit
-        document.getElementById("submit").addEventListener('click', () => {
+        document.getElementById("submit").addEventListener('click', function () {
           component.updateProps({ 
             formResult: {
               username: document.getElementById("username").value,
-              password: document.getElementById("password").value,
-            },
+              password: document.getElementById("password").value
+            }
           });
         });
       });

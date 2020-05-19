@@ -8,33 +8,35 @@
   <body>
     <h2>iFrame</h2>
     <p>Form result from Host Domain</p>
-    <p>Username: <span id="username"></span></p>
-    <p>Password: <span id="password"></span></p>
+    <p>Username: <span id="username">-----</span></p>
+    <p>Password: <span id="password">-----</span></p>
 
     <button type="button" id="sendTest">
       Send "Test Message" to Host Domain
     </button>
 
-    <script>
+    <script type="text/javascript">
       // Create zoid component
       const CrossDomain = zoid.create({
         tag: 'cross-domain',
         url: '../iframe',
         autoResize: {
           width: true,
-          height: true,
-        },
+          height: true
+        }
       });
 
       // Update "result" element from parent
-      document.getElementById("sendTest").addEventListener('click', () => {
+      document.getElementById("sendTest").addEventListener('click', function () {
         window.xprops.testResult('result', 'Test Message from Iframe Domain');
       });
 
       // Listening props from parent
-      window.xchild.onProps((props) => {
-        document.getElementById('username').innerHTML = props.formResult.username || '-----';
-        document.getElementById('password').innerHTML = props.formResult.password || '-----';
+      window.xchild.onProps(function (props) {
+        if (props.formResult.username || props.formResult.password) {
+          document.getElementById('username').innerHTML = props.formResult.username;
+          document.getElementById('password').innerHTML = props.formResult.password;
+        }
       });
     </script>
   </body>
